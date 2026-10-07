@@ -1,0 +1,120 @@
+@import "tailwindcss" source(none);
+@source "./";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-overlay: var(--overlay);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.975 0.008 85);
+  --foreground: oklch(0.2 0.02 160);
+  --card: oklch(0.995 0.004 85);
+  --card-foreground: oklch(0.2 0.02 160);
+  --popover: oklch(0.995 0.004 85);
+  --popover-foreground: oklch(0.2 0.02 160);
+  --primary: oklch(0.52 0.13 160);
+  --primary-foreground: oklch(0.98 0.01 160);
+  --secondary: oklch(0.93 0.015 85);
+  --secondary-foreground: oklch(0.25 0.02 160);
+  --muted: oklch(0.94 0.012 85);
+  --muted-foreground: oklch(0.48 0.02 160);
+  --accent: oklch(0.72 0.15 65);
+  --accent-foreground: oklch(0.2 0.02 60);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.88 0.015 85);
+  --input: oklch(0.88 0.015 85);
+  --ring: oklch(0.52 0.13 160);
+  --overlay: oklch(0.12 0.02 160 / 85%);
+  --grid-line: oklch(0.52 0.13 160 / 8%);
+}
+
+.dark {
+  --background: oklch(0.16 0.015 165);
+  --foreground: oklch(0.95 0.01 120);
+  --card: oklch(0.2 0.018 165);
+  --card-foreground: oklch(0.95 0.01 120);
+  --popover: oklch(0.2 0.018 165);
+  --popover-foreground: oklch(0.95 0.01 120);
+  --primary: oklch(0.82 0.16 155);
+  --primary-foreground: oklch(0.16 0.02 165);
+  --secondary: oklch(0.25 0.02 165);
+  --secondary-foreground: oklch(0.95 0.01 120);
+  --muted: oklch(0.24 0.018 165);
+  --muted-foreground: oklch(0.7 0.02 150);
+  --accent: oklch(0.8 0.14 70);
+  --accent-foreground: oklch(0.18 0.02 60);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.82 0.16 155);
+  --overlay: oklch(0.08 0.01 165 / 90%);
+  --grid-line: oklch(0.82 0.16 155 / 6%);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    transition: background-color 0.3s, color 0.3s;
+  }
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@utility text-gradient {
+  background: linear-gradient(110deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility glow {
+  box-shadow: 0 20px 60px -20px color-mix(in oklch, var(--primary) 45%, transparent);
+}
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
